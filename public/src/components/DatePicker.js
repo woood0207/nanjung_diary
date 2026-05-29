@@ -1,18 +1,23 @@
 import { CalendarIcon, SearchIcon } from "./Icons.js";
 
 export function DatePicker({ month, day, onChange }) {
-  const months = Array.from({ length: 12 }, (_, index) => index + 1);
-  const daysInMonth = new Date(2024, month, 0).getDate();
-  const days = Array.from({ length: daysInMonth }, (_, index) => index + 1);
+  const { useEffect, useState } = React;
+  const currentYear = new Date().getFullYear();
+  const [displayYear, setDisplayYear] = useState(currentYear);
 
-  function handleMonthChange(event) {
-    const nextMonth = Number(event.target.value);
-    const nextMaxDay = new Date(2024, nextMonth, 0).getDate();
-    onChange(nextMonth, Math.min(day, nextMaxDay));
+  useEffect(() => {
+    const maxDay = new Date(displayYear, month, 0).getDate();
+    if (day > maxDay) onChange(month, maxDay);
+  }, [displayYear, month, day, onChange]);
+
+  function formatDateValue() {
+    return `${displayYear}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
   }
 
-  function handleDayChange(event) {
-    onChange(month, Number(event.target.value));
+  function handleDateChange(event) {
+    const [year, nextMonth, nextDay] = event.target.value.split("-").map(Number);
+    setDisplayYear(year);
+    onChange(nextMonth, nextDay);
   }
 
   return React.createElement(
@@ -32,37 +37,20 @@ export function DatePicker({ month, day, onChange }) {
     ),
     React.createElement(
       "div",
-      { className: "flex w-full gap-2 sm:w-auto" },
-      React.createElement(
-        "select",
-        {
-          value: month,
-          onChange: handleMonthChange,
-          className:
-            "h-12 flex-1 rounded border border-[#1A1A1A]/20 bg-[#FBF8EF] px-4 font-serif text-base text-[#1A1A1A] shadow-inner outline-none transition focus:border-[#8B0000] focus:ring-2 focus:ring-[#8B0000]/20 sm:w-28 sm:flex-none",
-          "aria-label": "월 선택",
-        },
-        months.map((value) =>
-          React.createElement("option", { key: value, value }, `${value}월`),
-        ),
-      ),
-      React.createElement(
-        "select",
-        {
-          value: day,
-          onChange: handleDayChange,
-          className:
-            "h-12 flex-1 rounded border border-[#1A1A1A]/20 bg-[#FBF8EF] px-4 pr-10 font-serif text-base text-[#1A1A1A] shadow-inner outline-none transition focus:border-[#8B0000] focus:ring-2 focus:ring-[#8B0000]/20 sm:w-28 sm:flex-none",
-          "aria-label": "일 선택",
-        },
-        days.map((value) =>
-          React.createElement("option", { key: value, value }, `${value}일`),
-        ),
-      ),
+      { className: "relative w-full sm:w-64" },
+      React.createElement("input", {
+        type: "date",
+        value: formatDateValue(),
+        onChange: handleDateChange,
+        onInput: handleDateChange,
+        className:
+          "h-12 w-full rounded border border-[#1A1A1A]/20 bg-[#FBF8EF] px-4 pr-11 font-serif text-base text-[#1A1A1A] shadow-inner outline-none transition focus:border-[#8B0000] focus:ring-2 focus:ring-[#8B0000]/20",
+      }),
       React.createElement(
         "span",
         {
-          className: "hidden place-items-center text-[#8B0000] sm:grid",
+          className:
+            "pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[#8B0000]",
         },
         React.createElement(SearchIcon),
       ),

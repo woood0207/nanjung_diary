@@ -1,4 +1,4 @@
-import { BookOpenIcon, SealIcon } from "./Icons.js";
+import { BookOpenIcon } from "./Icons.js";
 import { formatSolar } from "../lib/diary.js";
 
 export function DiaryCard({ entry, selectedMonth, selectedDay, isFallback }) {
@@ -60,10 +60,17 @@ export function DiaryCard({ entry, selectedMonth, selectedDay, isFallback }) {
           "div",
           {
             className:
-              "grid h-16 w-16 shrink-0 place-items-center rounded-sm border-2 border-[#8B0000] text-[#8B0000]",
-            title: "인장",
+              "grid h-16 w-16 shrink-0 place-items-center rounded-[2px] border-[3px] border-[#8B0000] bg-[#8B0000]/5 text-[#8B0000] shadow-[inset_0_0_0_1px_rgba(139,0,0,0.25)]",
+            title: "충무공 인장",
           },
-          React.createElement(SealIcon),
+          React.createElement(
+            "span",
+            {
+              className:
+                "whitespace-pre-line text-center text-lg font-black leading-none tracking-[0.08em]",
+            },
+            "忠\n武",
+          ),
         ),
       ),
       isFallback &&
