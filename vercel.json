@@ -1,11 +1,9 @@
 {
   "buildCommand": "node scripts/build-static.mjs",
   "outputDirectory": "dist",
-  "cleanUrls": true,
-  "trailingSlash": false,
   "rewrites": [
     {
-      "source": "/:path*",
+      "source": "/",
       "destination": "/index.html"
     }
   ]
