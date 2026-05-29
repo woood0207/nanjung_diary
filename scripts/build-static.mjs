@@ -25,6 +25,6 @@ function copyDir(source, target) {
 fs.rmSync(dist, { recursive: true, force: true });
 copyFile(path.join(root, "index.html"), path.join(dist, "index.html"));
 copyDir(path.join(root, "src"), path.join(dist, "src"));
-copyDir(path.join(root, "public"), path.join(dist, "public"));
+copyFile(path.join(root, "public", "diary.json"), path.join(dist, "public", "diary.json"));
 
 console.log(`Built static site in ${dist}`);

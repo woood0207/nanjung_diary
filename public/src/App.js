@@ -6,7 +6,6 @@ import {
   getEntriesBySolarDate,
   getRandomEntry,
   getStats,
-  parseDateInput,
   todayMonthDay,
 } from "./lib/diary.js";
 
@@ -47,8 +46,8 @@ function App() {
   );
   const stats = useMemo(() => getStats(entries), [entries]);
 
-  function handleDateChange(value) {
-    setSelectedDate(parseDateInput(value));
+  function handleMonthDayChange(month, day) {
+    setSelectedDate({ month, day });
   }
 
   return React.createElement(
@@ -94,7 +93,7 @@ function App() {
         React.createElement(DatePicker, {
           month: selectedDate.month,
           day: selectedDate.day,
-          onChange: handleDateChange,
+          onChange: handleMonthDayChange,
         }),
         React.createElement(
           "div",

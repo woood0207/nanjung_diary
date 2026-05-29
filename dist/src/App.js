@@ -6,7 +6,6 @@ import {
   getEntriesBySolarDate,
   getRandomEntry,
   getStats,
-  parseDateInput,
   todayMonthDay,
 } from "./lib/diary.js";
 
@@ -20,7 +19,11 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch("./public/diary.json")
+    fetch("./diary.json")
+      .then((response) => {
+        if (response.ok) return response;
+        return fetch("./public/diary.json");
+      })
       .then((response) => response.json())
       .then((data) => setEntries(data))
       .finally(() => setIsLoading(false));
@@ -43,8 +46,8 @@ function App() {
   );
   const stats = useMemo(() => getStats(entries), [entries]);
 
-  function handleDateChange(value) {
-    setSelectedDate(parseDateInput(value));
+  function handleMonthDayChange(month, day) {
+    setSelectedDate({ month, day });
   }
 
   return React.createElement(
@@ -90,7 +93,7 @@ function App() {
         React.createElement(DatePicker, {
           month: selectedDate.month,
           day: selectedDate.day,
-          onChange: handleDateChange,
+          onChange: handleMonthDayChange,
         }),
         React.createElement(
           "div",
