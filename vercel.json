@@ -1,10 +1,10 @@
 {
   "buildCommand": "node scripts/build-static.mjs",
   "outputDirectory": "dist",
-  "rewrites": [
+  "routes": [
     {
-      "source": "/",
-      "destination": "/index.html"
+      "src": "^/$",
+      "dest": "/index.html"
     }
   ]
 }
