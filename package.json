@@ -1,0 +1,11 @@
+{
+  "name": "today-nanjung-ilgi",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "parse": "node scripts/parseDiary.mjs",
+    "dev": "node server.mjs",
+    "start": "node server.mjs"
+  }
+}
