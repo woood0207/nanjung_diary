@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "parse": "node scripts/parseDiary.mjs",
+    "build": "node scripts/build-static.mjs",
     "dev": "node server.mjs",
     "start": "node server.mjs"
   }
