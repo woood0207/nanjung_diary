@@ -11,6 +11,16 @@ node server.mjs
 
 브라우저에서 `http://localhost:4173`을 엽니다.
 
+## Vercel 배포
+
+이 프로젝트는 백엔드 없는 정적 사이트입니다. Vercel에서는 Framework Preset을 `Other`로 두고 배포하면 됩니다.
+
+- Build Command: 비워둠
+- Output Directory: 비워둠 또는 `.`
+- Install Command: 비워둠
+
+GitHub 저장소로 올린 뒤 Vercel에서 Import하면 `vercel.json`의 SPA fallback 설정으로 정적 파일이 그대로 배포됩니다.
+
 ## 구조
 
 - `scripts/parseDiary.mjs`: 원문 텍스트를 `public/diary.json`으로 변환합니다.
