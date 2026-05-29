@@ -19,7 +19,7 @@ node server.mjs
 - Output Directory: `dist`
 - Install Command: 비워둠
 
-GitHub 저장소로 올린 뒤 Vercel에서 Import하면 `vercel.json`의 SPA fallback 설정으로 정적 파일이 그대로 배포됩니다.
+현재 Vercel은 `public` 폴더를 정적 루트로 서빙하므로 `public/index.html`, `public/src`, `public/diary.json`이 함께 올라가야 합니다.
 
 ## 구조
 
